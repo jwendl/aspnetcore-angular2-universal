@@ -14,11 +14,13 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './containers/home/home.component';
 import { UsersComponent } from './containers/users/users.component';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { CounterComponent } from './containers/counter/counter.component';
 import { ChatComponent } from './containers/chat/chat.component';
-import { Ng2BootstrapComponent } from './containers/ng2-bootstrap-demo/ng2bootstrap.component';
+import { NgxBootstrapComponent } from './containers/ngx-bootstrap-demo/ngx-bootstrap.component';
 
 import { LinkService } from './shared/link.service';
+import { UserService } from './shared/user.service';
 import { ConnectionResolver } from './shared/route.resolver';
 import { ORIGIN_URL } from './shared/constants/baseurl.constants';
 import { TransferHttpModule } from '../modules/transfer-http/transfer-http.module';
@@ -38,10 +40,11 @@ export function createTranslateLoader(http: Http, baseHref) {
         NavMenuComponent,
         CounterComponent,
         UsersComponent,
+        UserDetailComponent,
         HomeComponent,
         ChatComponent,
-        Ng2BootstrapComponent
-    ], 
+        NgxBootstrapComponent
+    ],
     imports: [
         CommonModule,
         HttpModule,
@@ -119,9 +122,9 @@ export function createTranslateLoader(http: Http, baseHref) {
                 }
             },
             {
-                path: 'ng2-bootstrap', component: Ng2BootstrapComponent,
+                path: 'ngx-bootstrap', component: NgxBootstrapComponent,
                 data: {
-                    title: 'Ng2-bootstrap demo!!',
+                    title: 'Ngx-bootstrap demo!!',
                     meta: [{ name: 'description', content: 'This is an Demo Bootstrap page Description!' }],
                     links: [
                         { rel: 'canonical', href: 'http://blogs.example.com/bootstrap/something' },
@@ -130,12 +133,15 @@ export function createTranslateLoader(http: Http, baseHref) {
                 }
             },
 
+            { path: 'lazy', loadChildren: './containers/+lazy/lazy.module#LazyModule'},
+
             // All else fails - go home!
             { path: '**', redirectTo: 'home' }
         ])
     ],
     providers: [
         LinkService,
+        UserService,
         ConnectionResolver,
         TranslateModule
     ]
